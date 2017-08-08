@@ -17,17 +17,19 @@ import re
 class Standard(NodeLinter):
     """Provides an interface to standard."""
 
-    syntax = ('javascript', 'html', 'javascriptnext', 'javascript 6to5', 'javascript (babel)')
+    syntax = ('javascript', 'html', 'javascriptnext', 'javascript 6to5', 'javascript (babel)', 'vue')
     cmd = 'standard --stdin --verbose'
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 3.7.2'
     regex = r'^\s.+:(?P<line>\d+):(?P<col>\d+):(?P<message>.+)'
     selectors = {
-        'html': 'source.js.embedded.html'
+        'html': 'source.js.embedded.html',
+        'vue': 'source.js.embedded.html'
     }
 
     html_pattern = re.compile(r'(^.*\n)\s+$', re.DOTALL)
+    javascript_tag_pattern = re.compile(r'(?i)<script.*?>(.*?)</script>', re.S)
 
     def run(self, cmd, code):
         """
@@ -40,4 +42,8 @@ class Standard(NodeLinter):
             match = self.html_pattern.match(code)
             if match:
                 code = match.group(1)
+        elif code and self.syntax == 'vue':
+            vue_match = self.javascript_tag_pattern.match(code)
+            if vue_match:
+                code = vue_match.group(1)
         return super(Standard, self).run(cmd, code)
