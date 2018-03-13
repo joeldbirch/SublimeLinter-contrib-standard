@@ -1,4 +1,10 @@
-SublimeLinter-contrib-standard
+SublimeLinter-contrib-standardx
+================================
+
+
+# Important!
+**This is a random, niave effort to change SublimeLinter-contrib-standard (forked) to work with standardx. The rest of this page is unchanged and still refers to the original repo.**
+
 ================================
 
 [![Build Status](https://travis-ci.org/Flet/SublimeLinter-contrib-standard.svg?branch=master)](https://travis-ci.org/Flet/SublimeLinter-contrib-standard)

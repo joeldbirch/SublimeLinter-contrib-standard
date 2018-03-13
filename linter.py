@@ -8,17 +8,17 @@
 # License: MIT
 #
 
-"""This module exports the Standard plugin class."""
+"""This module exports the StandardX plugin class."""
 
 from SublimeLinter.lint import NodeLinter
 import re
 
 
-class Standard(NodeLinter):
+class StandardX(NodeLinter):
     """Provides an interface to standard."""
 
     syntax = ('javascript', 'html', 'javascriptnext', 'javascript 6to5', 'javascript (babel)')
-    cmd = 'standard --stdin --verbose'
+    cmd = 'standardx --stdin --verbose'
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 3.7.2'
@@ -29,7 +29,7 @@ class Standard(NodeLinter):
 
     html_pattern = re.compile(r'(^.*\n)\s+$', re.DOTALL)
 
-    npm_name = 'standard'
+    npm_name = 'standardx'
     defaults = {
         'enable_if_dependency': True,
         'disable_if_not_dependency': False
@@ -46,4 +46,4 @@ class Standard(NodeLinter):
             match = self.html_pattern.match(code)
             if match:
                 code = match.group(1)
-        return super(Standard, self).run(cmd, code)
+        return super(StandardX, self).run(cmd, code)
